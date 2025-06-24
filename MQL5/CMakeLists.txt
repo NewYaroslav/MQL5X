@@ -20,3 +20,19 @@ foreach(file_path IN LISTS JASON_FILES)
 
     file(COPY "${file_path}" DESTINATION "${target_dir}")
 endforeach()
+
+# --- Copy MT4Orders.mqh and related files ---
+
+file(GLOB_RECURSE MT4ORDERS_FILES
+    "${MQL5_INCLUDE_SRC_DIR}/MQL5X/external/mt4orders/*.mqh"
+    "${MQL5_INCLUDE_SRC_DIR}/MQL5X/external/mt4orders/*.txt"
+    "${MQL5_INCLUDE_SRC_DIR}/MQL5X/external/mt4orders/*.dox"
+)
+
+foreach(file_path IN LISTS MT4ORDERS_FILES)
+    file(RELATIVE_PATH rel_path "${MQL5_INCLUDE_SRC_DIR}" "${file_path}")
+    set(target_path "${MQL5_INCLUDE_DST_DIR}/${rel_path}")
+    get_filename_component(target_dir "${target_path}" DIRECTORY)
+    file(MAKE_DIRECTORY "${target_dir}")
+    file(COPY "${file_path}" DESTINATION "${target_dir}")
+endforeach()

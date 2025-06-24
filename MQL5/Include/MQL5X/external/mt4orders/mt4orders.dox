@@ -1,0 +1,50 @@
+/*!
+\defgroup mt4orders MT4Orders Compatibility Layer
+\brief Emulation of MetaTrader 4 order functions for MQL5.
+
+This module provides a compatibility layer that implements commonly used MT4 order-handling
+functions inside MQL5, simplifying the process of migrating MQL4 codebases to MetaTrader 5.
+
+The implementation is fully written in MQL5 and wraps standard classes such as `CTrade` and `COrderInfo`,
+but exposes an MT4-like API for order placement, modification, selection, and closing.
+
+### Emulated Functions:
+- OrderSend
+- OrderClose
+- OrderModify
+- OrderDelete
+- OrderSelect
+- OrderType
+- OrderLots
+- OrderMagicNumber
+- OrdersTotal
+- OrderTicket
+- OrderProfit
+- OrderOpenTime
+- OrderOpenPrice
+- OrderStopLoss
+- OrderTakeProfit
+
+### Example Usage:
+```cpp
+#include <MT4Orders.mqh>
+
+int ticket = OrderSend(Symbol(), OP_SELL, 0.2, Bid, 3, 0, 0, "Sell Test", 42, 0, clrRed);
+if (ticket >= 0 && OrderSelect(ticket, SELECT_BY_TICKET))
+{
+    Print("Order opened with magic = ", OrderMagicNumber());
+}
+```
+
+### Notes:
+- Only one order can be selected at a time (like in MT4)
+- Uses global state internally — avoid using in multithreaded contexts
+- Suitable for porting older MT4 EAs to MQL5 with minimal changes
+
+\author Andrey Kozlov (Integer)
+\version 1.02
+\date 2016
+\copyright Free use
+\sa https://www.mql5.com/en/code/16006
+*/
+
