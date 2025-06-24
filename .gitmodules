@@ -1,0 +1,9 @@
+[submodule "external/time-shield-cpp"]
+	path = external/time-shield-cpp
+	url = https://github.com/NewYaroslav/time-shield-cpp.git
+[submodule "external/SimpleNamedPipe"]
+	path = external/SimpleNamedPipe
+	url = https://github.com/NewYaroslav/SimpleNamedPipe.git
+[submodule "external/hmac-cpp"]
+	path = external/hmac-cpp
+	url = https://github.com/NewYaroslav/hmac-cpp.git
