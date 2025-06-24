@@ -12,4 +12,6 @@ set(CPP_LIB_DIR     "${CMAKE_BINARY_DIR}/lib")
 
 # Добавить внешние зависимости
 add_subdirectory(external)
+add_subdirectory(MQL5)
+
 

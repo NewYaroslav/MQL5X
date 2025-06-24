@@ -1,0 +1,37 @@
+/*!
+\defgroup jason_json_parser Jason — JSON Parser for MQL5
+\brief Lightweight self-contained JSON parser and serializer for MQL5.
+
+This module implements a simple JSON parser entirely in MQL5, created by Roman Kornev.
+It is designed for scripts and experts that need to work with JSON data directly
+within the MetaTrader 5 terminal.
+
+### Features:
+- Fully written in MQL5, no DLLs or external dependencies
+- Supports all basic JSON types: objects, arrays, strings, numbers, booleans, null
+- Simple and compact, single-file implementation
+- Recursive deserialization and serialization
+- Class `CJAVal` used to build and manipulate dynamic JSON trees
+
+### Example Usage (Deserialization):
+```cpp
+CJAVal js;
+if (js.Deserialize("{ \"x\": [1, 2, 3] }"))
+    Print(js["x"][0].ToInt()); // prints 1
+```
+
+### Example Usage (Serialization):
+```cpp
+CJAVal js;
+js["hello"] = "world";
+string out;
+js.Serialize(out);
+Print(out); // {"hello":"world"}
+```
+
+\author Roman Kornev
+\version 1.08
+\date 2017
+\copyright Public Domain
+\sa https://www.mql5.com/en/code/13663
+*/
