@@ -1,0 +1,54 @@
+/*!
+\defgroup mql5x_hash Hash — Dynamic Hash Table for MQL5
+\brief Implementation of a flexible hash table with dynamic resizing and optional memory ownership.
+
+This module implements a hash table structure for storing and retrieving objects by string keys.
+The design is based on separate chaining using linked lists, and prime-sized bucket arrays to ensure good distribution.
+
+All values must inherit from the base class \c HashValue.
+The user can store either custom objects or use provided wrappers for primitive types:
+\c HashString, \c HashInt, \c HashDouble, \c HashLong, and \c HashDatetime.
+
+Memory management is handled via the \c adoptValues flag, which enables automatic deletion of stored objects
+when they are removed or when the hash is destroyed.
+
+### Features:
+- FNV-1a based string hashing (32/64-bit)
+- Prime-sized bucket arrays to reduce collisions
+- `HashLoop` class for ordered iteration
+- Wrapper classes for primitive types
+- Optional automatic cleanup of dynamic values
+
+### Example:
+```cpp
+class MyValue : public HashValue {
+  public: int data;
+  MyValue(int d) { data = d; }
+};
+
+void OnStart()
+{
+    Hash *h = new Hash(193, true); // true = auto-delete values
+    h.hPut("foo", new MyValue(42));
+    h.hPutInt("bar", 100);
+
+    MyValue *v = (MyValue*)h.hGet("foo");
+    Print("foo -> ", v.data);
+
+    Print("bar -> ", h.hGetInt("bar"));
+
+    HashLoop *loop = new HashLoop(h);
+    for (; loop.hasNext(); loop.next())
+        Print(loop.key(), " => ", loop.valInt());
+    delete loop;
+
+    delete h;
+}
+```
+
+\author Andrew Lord (lordy)
+\version 1.0
+\date 2014
+\copyright Public use
+\sa https://www.mql5.com/en/code/16123
+*/
